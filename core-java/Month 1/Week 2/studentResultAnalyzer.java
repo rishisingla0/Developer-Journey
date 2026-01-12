@@ -16,6 +16,7 @@ public class studentResultAnalyzer {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the name of Student: ");
         String name = sc.nextLine();
+        System.out.println(name);
         System.out.print("Enter the total number of Subjects: ");
         int subjects = sc.nextInt();
         double[] arr = new double[subjects];

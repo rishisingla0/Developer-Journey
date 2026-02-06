@@ -1,0 +1,16 @@
+{
+    "java.project.sourcePaths": [
+        "Advance Java\\Week 10",
+        "core-java\\Java & OOP\\Week 1",
+        "core-java\\Java & OOP\\Week 2",
+        "core-java\\Java & OOP\\Week 3",
+        "core-java\\Java & OOP\\Week 4",
+        "core-java\\Java & OOP\\Week 5",
+        "core-java\\Java & OOP\\Week 6",
+        "core-java\\Java & OOP\\Week 7",
+        "core-java\\Java & OOP\\Week 8"
+    ],
+    "java.project.referencedLibraries": [
+        "lib\\mysql-connector-j-9.6.0.jar"
+    ]
+}

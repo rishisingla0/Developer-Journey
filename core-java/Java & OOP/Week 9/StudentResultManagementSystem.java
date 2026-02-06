@@ -1,4 +1,5 @@
 import java.util.*;
+import java.sql.*;
 
 class InvalidMarksException extends RuntimeException {
     public InvalidMarksException(String msg) {
@@ -54,6 +55,64 @@ class Student {
     }
 }
 
+class StudentDAO {
+    private String url = "jdbc:mysql://localhost:3306/studentdb";
+    private String user = "root";
+    private String password = "Rishi@1212";
+
+    public boolean insertStudent(Student s) {
+        boolean isInserted = false;
+
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+
+        String sql = "INSERT INTO student VALUES (?, ?, ?)";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+
+        ps.setInt(1, s.getId());
+        ps.setString(2, s.getName());
+        ps.setInt(3, s.getTotalMarks());
+
+        int rows = ps.executeUpdate();
+
+        if(rows > 0) {
+            isInserted = true;
+        }
+
+        con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return isInserted;
+    }
+
+    public void getAllStudents() {
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+
+            String sql = "SELECT * FROM student";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int marks = rs.getInt("marks");
+
+                System.out.println(id + " | " + name + " | " + marks);
+            }
+
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
 class ResultService {
 
     public void printResult(Student student) {
@@ -68,7 +127,7 @@ class ResultService {
 public class StudentResultManagementSystem {
     public static void main(String[] args) {
         ResultService obj = new ResultService();
-        Student s1 = new Student(1, "Rishi");
+        Student s1 = new Student(4, "Ankit");
         try {
             s1.addMark("Java", 87);
             s1.addMark("DBMS", 78);
@@ -78,5 +137,12 @@ public class StudentResultManagementSystem {
             System.out.println(e.getMessage());
         }
         obj.printResult(s1);
+
+        StudentDAO dao = new StudentDAO();
+
+        if(dao.insertStudent(s1)) {
+            System.out.println("Student saved Successfully");
+        }
+        dao.getAllStudents();
     }
 }

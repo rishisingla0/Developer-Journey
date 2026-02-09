@@ -128,20 +128,23 @@ public class StudentResultManagementSystem {
     public static void main(String[] args) {
         ResultService obj = new ResultService();
         Student s1 = new Student(4, "Ankit");
+        Student s2 = new Student(6, "Arshit");
+
         try {
             s1.addMark("Java", 87);
             s1.addMark("DBMS", 78);
             s1.addMark("PHP", 101);
             s1.addMark("Python", 102);
+            s2.addMark("Computer Graphics", 86);
         } catch(InvalidMarksException e) {
             System.out.println(e.getMessage());
         }
         obj.printResult(s1);
+        obj.printResult(s2);
 
         StudentDAO dao = new StudentDAO();
-
-        if(dao.insertStudent(s1)) {
-            System.out.println("Student saved Successfully");
+        if(dao.insertStudent(s2)) {
+            System.out.println("Student Saved Successfully");
         }
         dao.getAllStudents();
     }
